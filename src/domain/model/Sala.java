@@ -1,13 +1,21 @@
-package domain.models;
+package domain.model;
 
 public class Sala {
-    private int id;
+    private int numero;
     private Assento[][] assentos;
 
     public Sala(int id, int fileiras, int colunas) {
-        this.id = id;
+        this.numero = id;
         assentos = new Assento[fileiras][colunas];
         PreencherAssentos(fileiras, colunas);
+    }
+
+    public int getNumero() {
+        return numero;
+    }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
     }
 
     public Assento[][] getAssentos() {
@@ -19,11 +27,10 @@ public class Sala {
     }
 
     private void PreencherAssentos(int fileiras, int colunas) {
-        for (int i=0; i < colunas; i++){
-            char identificador = 'A';
-            identificador += i;
-            for (int j=0; j < fileiras; j++) {
-                String codigo = String.valueOf(identificador) + String.valueOf(j);
+        for (int i=0; i < fileiras; i++){
+            char letraFileira = (char)('A'+ i);
+            for (int j=0; j < colunas; j++) {
+                String codigo = letraFileira + String.valueOf(j+1);
                 assentos[i][j] = new Assento(codigo, i, j);
             }
         }

@@ -1,9 +1,7 @@
-package domain.models;
-
-import java.time.LocalDate;
+package domain.model;
 
 public class Filme {
-    public int id;
+    private int id;
     private String nome;
     private int ano;
     private String genero;
@@ -12,6 +10,14 @@ public class Filme {
         this.nome = nome;
         this.ano = ano;
         this.genero = genero;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNome() {

@@ -1,4 +1,4 @@
-package domain.models;
+package domain.model;
 
 public class AssentoSessao {
     private Assento assentoFisico;

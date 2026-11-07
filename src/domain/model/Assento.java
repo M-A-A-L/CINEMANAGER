@@ -1,4 +1,4 @@
-package domain.models;
+package domain.model;
 
 public class Assento {
     private String id;
