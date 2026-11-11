@@ -1,5 +1,7 @@
 package domain.model;
 
+import domain.padroes.strategy.CalcularPreco;
+
 import java.util.UUID;
 
 public class Ingresso {
@@ -9,11 +11,12 @@ public class Ingresso {
     private String tipo;
     private double valor;
 
-    public Ingresso(String tipo, Sessao sessao, AssentoSessao assento) {
+    public Ingresso(String tipo, Sessao sessao, AssentoSessao assento, double valor) {
         this.id = gerarId();
         this.tipo = tipo;
         this.sessao = sessao;
         this.assento = assento;
+        this.valor = valor;
     }
 
     public String getId() {
@@ -26,8 +29,8 @@ public class Ingresso {
         return assento;
     }
     private String gerarId() {
-        String uuidAAleatorio = UUID.randomUUID().toString().replace("-","").substring(0, 6).toUpperCase();
-        return "CINETKT-"+uuidAAleatorio;
+        String uuidAleatorio = UUID.randomUUID().toString().replace("-","").substring(0, 6).toUpperCase();
+        return "CINETKT-"+uuidAleatorio;
     }
 }
 

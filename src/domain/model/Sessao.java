@@ -5,6 +5,7 @@ public class Sessao {
     private Filme filme;
     private int horario;
     private Sala sala;
+    private double preco;
     private AssentoSessao[][] assentos;
 
     public Sessao(int id, Filme filme, int horario, Sala sala) {
@@ -53,6 +54,14 @@ public class Sessao {
 
     public void setSala(Sala sala) {
         this.sala = sala;
+    }
+
+    public double getPreco() {
+        return preco;
+    }
+
+    public void setPreco(double preco) {
+        this.preco = preco;
     }
 
     public AssentoSessao[][] getAssentos() {
