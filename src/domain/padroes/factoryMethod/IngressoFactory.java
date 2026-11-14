@@ -1,10 +1,20 @@
 package domain.padroes.factoryMethod;
 
 import domain.model.AssentoSessao;
-import domain.model.Ingresso;
+import domain.model.FormasPagamento;
+import domain.model.ingressos.Ingresso;
 import domain.model.Sessao;
+import domain.padroes.strategy.CalculadorDePreco;
+import domain.padroes.strategy.CalcularPreco;
 
 public abstract class IngressoFactory { 
-    public abstract Ingresso criarIngresso(Sessao sessao, AssentoSessao assento);
+    protected abstract Ingresso instanciarIngresso(Sessao sessao, AssentoSessao assento, double valor, FormasPagamento formaPagamento);
+    protected abstract CalcularPreco definirEstrategiaPreco();
 
+    public final Ingresso criarIngresso(Sessao sessao, AssentoSessao assento, FormasPagamento formaPagamento) {
+        CalculadorDePreco calculador = new CalculadorDePreco();
+        calculador.setTipodePreco(definirEstrategiaPreco());
+        double valorFinal = calculador.calcular(sessao.getPreco());
+        return instanciarIngresso(sessao, assento, valorFinal, formaPagamento);
+    }
 }

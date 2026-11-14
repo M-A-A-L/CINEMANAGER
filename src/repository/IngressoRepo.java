@@ -1,7 +1,6 @@
 package repository;
 
-import domain.model.Filme;
-import domain.model.Ingresso;
+import domain.model.ingressos.Ingresso;
 
 import java.util.Collection;
 import java.util.HashMap;

@@ -1,20 +1,21 @@
-package domain.model;
+package domain.model.ingressos;
 
-import domain.padroes.strategy.CalcularPreco;
+import domain.model.AssentoSessao;
+import domain.model.FormasPagamento;
+import domain.model.Sessao;
+import domain.model.TiposIngresso;
 
 import java.util.UUID;
 
-public class Ingresso {
+public abstract class Ingresso {
     private String id;
     private Sessao sessao;
     private AssentoSessao assento;
-    private String tipo;
     private double valor;
     private FormasPagamento formaPagamento;
 
-    public Ingresso(String tipo, Sessao sessao, AssentoSessao assento, double valor, FormasPagamento formaPagamento) {
+    public Ingresso(Sessao sessao, AssentoSessao assento, double valor, FormasPagamento formaPagamento) {
         this.id = gerarId();
-        this.tipo = tipo;
         this.sessao = sessao;
         this.assento = assento;
         this.valor = valor;
@@ -36,10 +37,8 @@ public class Ingresso {
     public double getValor() {
         return valor;
     }
-
-    public String getTipo() {
-        return tipo;
-    }
+    public abstract TiposIngresso getTipoIngresso();
+    public abstract String adicionais();
 
     private String gerarId() {
         String uuidAleatorio = UUID.randomUUID().toString().replace("-","").substring(0, 6).toUpperCase();

@@ -34,7 +34,7 @@ public class SessaoService {
 
     public Sessao buscarSessaoPorId(int id) {
         if (id <= 0) {
-            throw new IllegalArgumentException("ID da sessao deve ser válidoo");
+            throw new IllegalArgumentException("ID da sessao deve ser válido");
         }
         Sessao sessao = sessaoRepo.buscarSessao(id);
         if (sessao == null) {
@@ -44,7 +44,7 @@ public class SessaoService {
     }
 
     public List<Sessao> listarSessoes() {
-        return new ArrayList<>(sessaoRepo.listarSessoes());
+        return sessaoRepo.listarSessoes();
     }
 
     public void removerSessao(int id) {
@@ -59,5 +59,26 @@ public class SessaoService {
             throw new IllegalArgumentException("Assento "+ idAssento + " não existe nesta sala");
         }
         return assentoSessao;
+    }
+
+    public List<Filme> listarFilmesEmCartaz() {
+        List<Filme> filmesEmCartaz = new ArrayList<>();
+        for (Sessao sessao: sessaoRepo.listarSessoes()) {
+            Filme filme = sessao.getFilme();
+            if (!filmesEmCartaz.contains(filme)) {
+                filmesEmCartaz.add(filme);
+            }
+        }
+        return filmesEmCartaz;
+    }
+
+    public List<Sessao> listarSessoesPorFilme(int idFilme) {
+        List<Sessao> sessoesDoFilme = new ArrayList<>();
+        for (Sessao sessao: sessaoRepo.listarSessoes()) {
+            if (sessao.getFilme().getId() == idFilme) {
+                sessoesDoFilme.add(sessao);
+            }
+        }
+        return sessoesDoFilme;
     }
 }
