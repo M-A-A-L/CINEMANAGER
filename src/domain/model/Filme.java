@@ -5,11 +5,13 @@ public class Filme {
     private String nome;
     private int ano;
     private String genero;
+    private int duracaoMin;
 
-    public Filme(String nome, int ano, String genero) {
+    public Filme(String nome, int ano, String genero, int duracaoMin) {
         this.nome = nome;
         this.ano = ano;
         this.genero = genero;
+        this.duracaoMin = duracaoMin;
     }
 
     public int getId() {
