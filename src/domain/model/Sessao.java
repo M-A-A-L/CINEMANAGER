@@ -5,13 +5,16 @@ public class Sessao {
     private Filme filme;
     private int horario;
     private Sala sala;
+    private double preco;
     private AssentoSessao[][] assentos;
 
-    public Sessao(int id, Filme filme, int horario, Sala sala) {
-        this.id = id;
+    public Sessao (Filme filme, Sala sala, int horario, double preco) {
+        this.id = filme.getId()+sala.getNumero();
         this.filme = filme;
         this.horario = horario;
         this.sala = sala;
+        this.preco = preco;
+
         Assento[][] fisicos = sala.retornarassentos();
         int fileiras = fisicos.length;
         int colunas = fisicos[0].length;
@@ -55,7 +58,27 @@ public class Sessao {
         this.sala = sala;
     }
 
+    public double getPreco() {
+        return preco;
+    }
+
+    public void setPreco(double preco) {
+        this.preco = preco;
+    }
+
     public AssentoSessao[][] getAssentos() {
         return assentos;
+    }
+
+    public AssentoSessao buscarAsssento(String idAssento) {
+        for (int i = 0; i < assentos.length; i++) {
+            for (int j = 0; j <assentos[i].length; j++) {
+                AssentoSessao atual = assentos[i][j];
+                if (atual != null && atual.getAssentoFisico().getId().equalsIgnoreCase(idAssento)) {
+                    return atual;
+                }
+            }
+        }
+        return null;
     }
 }
