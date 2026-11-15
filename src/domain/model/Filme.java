@@ -45,4 +45,12 @@ public class Filme {
     public void setGenero(String genero) {
         this.genero = genero;
     }
+
+    public int getDuracaoMin() {
+        return duracaoMin;
+    }
+
+    public void setDuracaoMin(int duracaoMin) {
+        this.duracaoMin = duracaoMin;
+    }
 }

@@ -16,7 +16,7 @@ public class IngressoRepo {
         ingressos.put(ingresso.getId(), ingresso);
     }
 
-    public void AtualizarIngresso(String id, Ingresso ingresso) {
+    public void atualizarIngresso(String id, Ingresso ingresso) {
         ingressos.replace(id, ingresso);
     }
     public Ingresso buscarIngresso(String id) {
@@ -26,7 +26,7 @@ public class IngressoRepo {
         return ingressos.values();
     }
 
-    public void RemoverIngresso(String id) {
+    public void removerIngresso(String id) {
         ingressos.remove(id);
     }
 }

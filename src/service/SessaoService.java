@@ -6,6 +6,7 @@ import domain.model.Sala;
 import domain.model.Sessao;
 import repository.SessaoRepo;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,14 +22,17 @@ public class SessaoService {
         this.salaService = salaService;
     }
 
-    public void criarSessao(int idFilme, int idSala, int horario, double precoBase) {
+    public void criarSessao(int idFilme, int idSala, LocalDateTime dataHora, double precoBase) {
         if (precoBase <= 0) {
             throw new IllegalArgumentException("O preço base da sessão deve ser maior que zero");
+        }
+        if (dataHora == null) {
+            throw new IllegalArgumentException("A data e o horario da sessão não podem estar nulos");
         }
         Filme filme = filmeService.buscarFilmePorId(idFilme);
         Sala sala = salaService.buscarSalaPorId(idSala);
 
-        Sessao sessao = new Sessao(filme, sala, horario, precoBase);
+        Sessao sessao = new Sessao(filme, sala, dataHora, precoBase);
         sessaoRepo.salvarSessao(sessao);
     }
 
@@ -49,12 +53,12 @@ public class SessaoService {
 
     public void removerSessao(int id) {
         buscarSessaoPorId(id);
-        sessaoRepo.RemoverSessao(id);
+        sessaoRepo.removerSessao(id);
     }
 
     public AssentoSessao buscarAssentoNaSessao(int idSessao, String idAssento) {
         Sessao sessao = buscarSessaoPorId(idSessao);
-        AssentoSessao assentoSessao = sessao.buscarAsssento(idAssento);
+        AssentoSessao assentoSessao = sessao.buscarAssento(idAssento);
         if (assentoSessao == null) {
             throw new IllegalArgumentException("Assento "+ idAssento + " não existe nesta sala");
         }
@@ -80,5 +84,13 @@ public class SessaoService {
             }
         }
         return sessoesDoFilme;
+    }
+    public void reservarAssento(int idSessao, String idAssento) {
+        AssentoSessao assento = buscarAssentoNaSessao(idSessao, idAssento);
+        assento.reservar();
+    }
+    public void liberarReservaAssento(int idSessao, String codigoAssento) {
+        AssentoSessao assento = buscarAssentoNaSessao(idSessao, codigoAssento);
+        assento.disponibilizar();
     }
 }

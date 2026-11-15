@@ -41,6 +41,6 @@ public class SalaService {
 
     public void deletarSala(int id) {
         buscarSalaPorId(id);
-        salaRepo.RemoverSala(id);
+        salaRepo.removerSala(id);
     }
 }

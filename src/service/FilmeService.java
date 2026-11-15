@@ -41,6 +41,6 @@ public class FilmeService {
 
     public void deletarFilme(int id) {
         buscarFilmePorId(id);
-        filmeRepo.RemoverFilme(id);
+        filmeRepo.removerFilme(id);
     }
 }

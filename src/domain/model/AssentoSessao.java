@@ -29,4 +29,10 @@ public class AssentoSessao {
     public void vender() {
         this.disponibilidade.venderAssento(this);
     }
+    public boolean estaDisponivel() {
+        return disponibilidade.estaDisponivel();
+    }
+    public String getEstado() {
+        return disponibilidade.getDescricao();
+    }
 }

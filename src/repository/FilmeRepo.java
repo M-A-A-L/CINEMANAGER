@@ -21,7 +21,7 @@ public class FilmeRepo {
         id++;
     }
 
-    public void AtualizarFilme(int id, Filme filme) {
+    public void atualizarFilme(int id, Filme filme) {
         filmes.replace(id, filme);
     }
     public Filme buscarFilme(int id) {
@@ -31,7 +31,7 @@ public class FilmeRepo {
         return filmes.values();
     }
 
-    public void RemoverFilme(int id) {
+    public void removerFilme(int id) {
         filmes.remove(id);
     }
 }

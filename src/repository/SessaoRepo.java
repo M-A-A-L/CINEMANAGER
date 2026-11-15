@@ -17,12 +17,12 @@ public class SessaoRepo {
     }
 
     public void salvarSessao(Sessao sessao) {
-        sessao.setId(this.id);
+        sessao.setId(id);
         sessoes.add(sessao);
         id++;
     }
 
-    public void AtualizarSessao(int id, Sessao sessao) {
+    public void atualizarSessao(int id, Sessao sessao) {
         Sessao sessaoAntiga = buscarSessao(id);
         if (sessaoAntiga != null) {
             int i = sessoes.indexOf(sessaoAntiga);
@@ -41,7 +41,7 @@ public class SessaoRepo {
         return sessoes;
     }
 
-    public void RemoverSessao(int id) {
+    public void removerSessao(int id) {
         Sessao sessaoAntiga = buscarSessao(id);
         int i = sessoes.indexOf(sessaoAntiga);
         if (sessaoAntiga != null) {

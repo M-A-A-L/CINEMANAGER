@@ -1,7 +1,8 @@
 package domain.padroes.facade;
 
 
-import domain.ProcessarPagamento;
+import service.GeradorComprovante;
+import service.ProcessarPagamento;
 import domain.model.*;
 import domain.model.ingressos.Ingresso;
 import domain.padroes.factoryMethod.IngressoFactory;
@@ -18,12 +19,14 @@ public class VendaFacade {
     private IngressoRepo ingressoRepo;
     private SessaoService sessaoService;
     private ProcessarPagamento processarPagamento;
+    private GeradorComprovante geradorComprovante;
     private Map<TiposIngresso, IngressoFactory> fabricas;
 
     public VendaFacade(IngressoRepo ingressoRepo, SessaoService sessaoService) {
         this.ingressoRepo = ingressoRepo;
         this.sessaoService = sessaoService;
         this.processarPagamento = new ProcessarPagamento();
+        this.geradorComprovante = new GeradorComprovante();
         this.fabricas = Map.of(
                 TiposIngresso.INTEIRA, new IngressoInteiraFactory(),
                 TiposIngresso.MEIA, new IngressoMeiaFactory(),
@@ -32,7 +35,7 @@ public class VendaFacade {
         );
     }
 
-    public Ingresso processarVenda(TiposIngresso tipo, int idSessao, String idAssento, FormasPagamento formaPagamento) {
+    public String processarVenda(TiposIngresso tipo, int idSessao, String idAssento, FormasPagamento formaPagamento) {
         if (tipo == null || !fabricas.containsKey(tipo)) {
             throw new IllegalArgumentException("Tipo de ingresso inválido ou não suportado.");
         }
@@ -44,9 +47,8 @@ public class VendaFacade {
             Ingresso ingresso = factory.criarIngresso(sessao, assentoSessao, formaPagamento);
             processarPagamento.processarPagamento(ingresso.getValor(), formaPagamento);
             ingressoRepo.salvarIngresso(ingresso);
-            return ingresso;
-            // adicionar comprovante de venda
-        }
+            String comprovante = geradorComprovante.emitirBilhete(ingresso);
+            return comprovante;}
         catch (Exception e) {
             assentoSessao.disponibilizar();
             throw e;
@@ -63,6 +65,6 @@ public class VendaFacade {
         }
         processarPagamento.estornarPagamento(ingresso.getValor(), ingresso.getFormaPagamento());
         ingresso.getAssento().disponibilizar();
-        ingressoRepo.RemoverIngresso(idIngresso);
+        ingressoRepo.removerIngresso(idIngresso);
     }
 }

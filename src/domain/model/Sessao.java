@@ -1,17 +1,18 @@
 package domain.model;
 
+import java.time.LocalDateTime;
+
 public class Sessao {
     private int id;
     private Filme filme;
-    private int horario;
+    private LocalDateTime dataHora;
     private Sala sala;
     private double preco;
     private AssentoSessao[][] assentos;
 
-    public Sessao (Filme filme, Sala sala, int horario, double preco) {
-        this.id = filme.getId()+sala.getNumero();
+    public Sessao (Filme filme, Sala sala, LocalDateTime dataHora, double preco) {
         this.filme = filme;
-        this.horario = horario;
+        this.dataHora = dataHora;
         this.sala = sala;
         this.preco = preco;
 
@@ -42,12 +43,12 @@ public class Sessao {
         this.filme = filme;
     }
 
-    public int getHorario() {
-        return horario;
+    public LocalDateTime getDataHora() {
+        return this.dataHora;
     }
 
-    public void setHorario(int horario) {
-        this.horario = horario;
+    public void setDataHora(LocalDateTime dataHora) {
+        this.dataHora = dataHora;
     }
 
     public Sala getSala() {
@@ -70,7 +71,7 @@ public class Sessao {
         return assentos;
     }
 
-    public AssentoSessao buscarAsssento(String idAssento) {
+    public AssentoSessao buscarAssento(String idAssento) {
         for (int i = 0; i < assentos.length; i++) {
             for (int j = 0; j <assentos[i].length; j++) {
                 AssentoSessao atual = assentos[i][j];

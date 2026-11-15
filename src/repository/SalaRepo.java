@@ -18,7 +18,7 @@ public class SalaRepo {
         salas.put(sala.getNumero(), sala);
     }
 
-    public void AtualizarSala(int numero, Sala sala) {
+    public void atualizarSala(int numero, Sala sala) {
         salas.replace(numero, sala);
     }
     public Sala buscarSala(int numero) {
@@ -29,7 +29,7 @@ public class SalaRepo {
         return salas.values();
     }
 
-    public void RemoverSala(int numero) {
+    public void removerSala(int numero) {
         salas.remove(numero);
     }
 }
