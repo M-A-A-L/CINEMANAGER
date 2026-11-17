@@ -2,7 +2,7 @@ package domain.padroes.facade;
 
 
 import service.GeradorComprovante;
-import service.ProcessarPagamento;
+import service.ProcessadorPagamento;
 import domain.model.*;
 import domain.model.ingressos.Ingresso;
 import domain.padroes.factoryMethod.IngressoFactory;
@@ -18,14 +18,14 @@ import java.util.Map;
 public class VendaFacade {
     private IngressoRepo ingressoRepo;
     private SessaoService sessaoService;
-    private ProcessarPagamento processarPagamento;
+    private ProcessadorPagamento processarPagamento;
     private GeradorComprovante geradorComprovante;
     private Map<TiposIngresso, IngressoFactory> fabricas;
 
     public VendaFacade(IngressoRepo ingressoRepo, SessaoService sessaoService) {
         this.ingressoRepo = ingressoRepo;
         this.sessaoService = sessaoService;
-        this.processarPagamento = new ProcessarPagamento();
+        this.processarPagamento = new ProcessadorPagamento();
         this.geradorComprovante = new GeradorComprovante();
         this.fabricas = Map.of(
                 TiposIngresso.INTEIRA, new IngressoInteiraFactory(),
@@ -46,6 +46,7 @@ public class VendaFacade {
             IngressoFactory factory = fabricas.get(tipo);
             Ingresso ingresso = factory.criarIngresso(sessao, assentoSessao, formaPagamento);
             processarPagamento.processarPagamento(ingresso.getValor(), formaPagamento);
+            assentoSessao.vender();
             ingressoRepo.salvarIngresso(ingresso);
             String comprovante = geradorComprovante.emitirBilhete(ingresso);
             return comprovante;}

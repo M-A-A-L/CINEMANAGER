@@ -17,26 +17,21 @@ import java.time.LocalDateTime;
 
 public class Main {
     public static void main(String[] args) {
-        // Repositories
         FilmeRepo filmeRepo = new FilmeRepo();
         SalaRepo salaRepo = new SalaRepo();
         SessaoRepo sessaoRepo = new SessaoRepo();
         IngressoRepo ingressoRepo = new IngressoRepo();
 
-        // Services + Facade
         FilmeService filmeService = new FilmeService(filmeRepo);
         SalaService salaService = new SalaService(salaRepo);
         SessaoService sessaoService = new SessaoService(sessaoRepo, filmeService, salaService);
         VendaFacade vendaFacade = new VendaFacade(ingressoRepo, sessaoService);
 
-        // Controllers
         AdminController adminController = new AdminController(filmeService, salaService, sessaoService);
         ClienteController clienteController = new ClienteController(sessaoService, vendaFacade);
 
-        // Dados de exemplo para testar sem precisar cadastrar tudo (remova quando quiser)
         carregarDadosDemo(filmeService, salaService, sessaoService);
 
-        // Views
         Entradas entradas = new Entradas();
         MenuAdmin menuAdmin = new MenuAdmin(entradas, adminController);
         MenuCliente menuCliente = new MenuCliente(entradas, clienteController);

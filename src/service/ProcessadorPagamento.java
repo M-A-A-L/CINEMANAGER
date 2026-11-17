@@ -2,7 +2,7 @@ package service;
 
 import domain.model.FormasPagamento;
 
-public class ProcessarPagamento {
+public class ProcessadorPagamento {
     public boolean processarPagamento(double valor, FormasPagamento formaPagamento) {
         if (valor <= 0) {
             throw new IllegalArgumentException("valor inválido");

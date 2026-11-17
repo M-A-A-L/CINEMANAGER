@@ -12,6 +12,9 @@ public abstract class IngressoFactory {
     protected abstract CalcularPreco definirEstrategiaPreco();
 
     public final Ingresso criarIngresso(Sessao sessao, AssentoSessao assento, FormasPagamento formaPagamento) {
+        if (assento.estaDisponivel()) {
+            throw new IllegalStateException("O assento ainda está disponível; reserve-o antes de criar o ingresso");
+        }
         CalculadorDePreco calculador = new CalculadorDePreco();
         calculador.setTipodePreco(definirEstrategiaPreco());
         double valorFinal = calculador.calcular(sessao.getPreco());

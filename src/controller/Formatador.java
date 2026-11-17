@@ -51,20 +51,4 @@ final class Formatador {
         sb.append("\nXX = ocupado");
         return sb.toString();
     }
-
-    static String ingresso(Ingresso i) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("========== INGRESSO ==========\n");
-        sb.append("Código:    ").append(i.getId()).append("\n");
-        sb.append(sessao(i.getSessao())).append("\n");
-        sb.append("Assento:   ").append(i.getAssento().getAssentoFisico().getId()).append("\n");
-        sb.append("Tipo:      ").append(i.getTipoIngresso()).append("\n");
-        sb.append(String.format("Valor:     R$ %.2f%n", i.getValor()));
-        sb.append("Pagamento: ").append(i.getFormaPagamento()).append("\n");
-        if (i.adicionais() != null) {
-            sb.append(i.adicionais()).append("\n");
-        }
-        sb.append("==============================");
-        return sb.toString();
-    }
 }
