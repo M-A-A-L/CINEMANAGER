@@ -41,7 +41,7 @@ public class VendaFacade {
         }
         Sessao sessao = sessaoService.buscarSessaoPorId(idSessao);
         AssentoSessao assentoSessao = sessaoService.buscarAssentoNaSessao(idSessao, idAssento);
-        assentoSessao.vender();
+        assentoSessao.reservar();
         try {
             IngressoFactory factory = fabricas.get(tipo);
             Ingresso ingresso = factory.criarIngresso(sessao, assentoSessao, formaPagamento);

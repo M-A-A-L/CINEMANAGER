@@ -33,6 +33,11 @@ public class SessaoService {
         Sala sala = salaService.buscarSalaPorId(idSala);
 
         Sessao sessao = new Sessao(filme, sala, dataHora, precoBase);
+        for (Sessao existente : sessaoRepo.listarSessoes()) {
+            if (sessao.conflitaCom(existente)) {
+                throw new IllegalArgumentException("A sala "+sala.getNumero()+" já possui a sessão "+existente.getId()+" nesse período");
+            }
+        }
         sessaoRepo.salvarSessao(sessao);
     }
 
@@ -84,13 +89,5 @@ public class SessaoService {
             }
         }
         return sessoesDoFilme;
-    }
-    public void reservarAssento(int idSessao, String idAssento) {
-        AssentoSessao assento = buscarAssentoNaSessao(idSessao, idAssento);
-        assento.reservar();
-    }
-    public void liberarReservaAssento(int idSessao, String codigoAssento) {
-        AssentoSessao assento = buscarAssentoNaSessao(idSessao, codigoAssento);
-        assento.disponibilizar();
     }
 }

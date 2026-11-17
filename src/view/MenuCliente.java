@@ -40,7 +40,6 @@ public class MenuCliente {
                     int idSessao = entradas.lerInt("Id da sessão: ");
                     System.out.println();
                     String idAssento = entradas.lerTexto("Digite o código do assento desejado (ex: 'A01'): ");
-                    controller.reservarAssento(idSessao, idAssento);
                     TiposIngresso tipo = entradas.lerEnum("Tipo de ingresso: ", TiposIngresso.values());
                     System.out.println();
                     FormasPagamento formaPagamento = entradas.lerEnum("Forma de pagamento: ", FormasPagamento.values());

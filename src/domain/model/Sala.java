@@ -30,12 +30,10 @@ public class Sala {
         for (int i=0; i < fileiras; i++){
             char letraFileira = (char)('A'+ i);
             for (int j=0; j < colunas; j++) {
-                String codigo = letraFileira + String.valueOf(j+1);
+                String numero = String.format("%02d", j+1);
+                String codigo = letraFileira + numero;
                 assentos[i][j] = new Assento(codigo, i, j);
             }
         }
-    }
-    public Assento[][] retornarassentos() {
-        return assentos;
     }
 }

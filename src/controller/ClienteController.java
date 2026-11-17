@@ -53,14 +53,6 @@ public class ClienteController {
             return "Erro: " + e.getMessage();
         }
     }
-    public String reservarAssento(int idSessao, String idAssento) {
-        try {
-            sessaoService.reservarAssento(idSessao, idAssento);
-            return "Assento "+idAssento.toUpperCase()+" reservado.";
-        } catch (IllegalArgumentException | IllegalStateException e) {
-            return "Erro: "+ e.getMessage();
-        }
-    }
     // vender ingresso
     public String finalizarCompra(TiposIngresso tipo, int idSessao, String idAssento, FormasPagamento formaPagamento) {
         try {

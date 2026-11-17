@@ -24,7 +24,7 @@ public class Entradas {
     public double lerDouble(String mensagem) {
         while (true) {
             try {
-                return Double.parseDouble(lerTexto(mensagem));
+                return Double.parseDouble(lerTexto(mensagem).replace(",","."));
             } catch (NumberFormatException e) {
                 System.out.println("Valor inválido. (Digite um número)");
             }

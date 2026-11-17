@@ -16,7 +16,7 @@ public class Sessao {
         this.sala = sala;
         this.preco = preco;
 
-        Assento[][] fisicos = sala.retornarassentos();
+        Assento[][] fisicos = sala.getAssentos();
         int fileiras = fisicos.length;
         int colunas = fisicos[0].length;
         this.assentos = new AssentoSessao[fileiras][colunas];
@@ -81,5 +81,11 @@ public class Sessao {
             }
         }
         return null;
+    }
+    public LocalDateTime getFim() {
+        return dataHora.plusMinutes(filme.getDuracaoMin());
+    }
+    public boolean conflitaCom(Sessao outra) {
+        return this.sala.getNumero() == outra.sala.getNumero() && this.dataHora.isBefore(outra.getFim()) && outra.dataHora.isBefore(this.getFim());
     }
 }
